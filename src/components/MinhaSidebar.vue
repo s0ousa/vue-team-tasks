@@ -1,15 +1,18 @@
 <script setup>
 import { CheckSquare, Users } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
-// IMPORTAÇÕES FALTANTES:
 import { 
   Sidebar, 
   SidebarHeader, 
   SidebarContent, 
   SidebarMenu, 
   SidebarMenuItem, 
-  SidebarMenuButton 
+  SidebarMenuButton,
+  useSidebar
 } from '@/components/ui/sidebar'
+
+const { setOpenMobile } = useSidebar();
+
 
 const items = [
   {
@@ -26,17 +29,17 @@ const items = [
 </script>
 
 <template>
- <Sidebar side="left" class="border-r border-gray-500 hidden md:inline">
+ <Sidebar side="left" class="border-r bg-card border-border hidden md:inline">
     <SidebarHeader > 
-        <div class="h-18 py-10 border-b flex items-center justify-center">
-            <h1>WTF Tasks</h1>
+        <div class="h-18 py-9 border-b border-border flex items-center justify-center">
+            <img src="@/assets/WTFLogo.png"  class="invert w-28">
         </div>
     </SidebarHeader>
     <SidebarContent>
           <SidebarMenu>
-              <SidebarMenuItem v-for="item in items" :key="item.title">
-                <SidebarMenuButton asChild class="">
-                    <RouterLink :to="item.page" class="flex gap-2 p-2 bg-red-50">   
+              <SidebarMenuItem v-for="item in items" :key="item.title" class="mx-4 ">
+                <SidebarMenuButton asChild  class=" px-2 py-6 rounded-md ">
+                    <RouterLink :to="item.page"  @click="setOpenMobile(false)" class="w-full" >   
                       <component :is="item.icon" />
                       <span>{{item.title}}</span>
                     </RouterLink>

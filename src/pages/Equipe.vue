@@ -1,12 +1,35 @@
+<script setup lang="ts">
+import SearchBox from '@/components/SearchBox.vue';
+import { useHeaderStore } from '@/stores/HeaderStore';
+import { onMounted, onUnmounted } from 'vue';
+
+    const headerStore = useHeaderStore()
+    
+    const openCreateMemberModal = () => {
+        alert('funcao de criar membro')
+    }
+    onMounted(() => {
+        headerStore.setHeader(
+                'Equipe',
+                'Gerencie os membros da sua equipe e suas responsabilidades',
+                {
+                    text: 'Adicionar Membro',
+                    onClick: openCreateMemberModal
+                }
+            )
+        }
+    )
+
+    onUnmounted(() => {
+        headerStore.clearHeader()
+})
+    
+</script>
 <template>
     <div>
-        <h1>Pagina equipe</h1>
+        <SearchBox/>
     </div>
 </template>
-
-<script setup lang="ts">
-
-</script>
 
 <style scoped>
 

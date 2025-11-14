@@ -1,16 +1,26 @@
 <script setup lang="ts">
-    const props = defineProps({
-        title: String,
-        quantity: Number,
-    })
+    import {
+        Card,
+        CardContent,
+        CardTitle,
+    } from '@/components/ui/card'
 
+    const props = defineProps({
+    title: String,
+    quantity: Number || String,
+    color: String
+    })
 
 </script>
 <template>
-    <div class="bg-red-200 w-3xs rounded-lg p-4 flex flex-col gap-1.5 ">
-        <p class="text-md ">Total de tarefas</p>
-        <p class="text-2xl font-semibold">12</p>
-    </div>
+   <Card class="w-full h-26 ">
+    <CardContent class="flex flex-col gap-2 items-start justify-center">
+            <CardTitle>{{title}}</CardTitle>
+            <p class="text-3xl">
+                {{ quantity }}
+            </p>
+        </CardContent>
+        </Card>
 </template>
 
 

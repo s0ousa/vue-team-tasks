@@ -5,12 +5,16 @@ import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <SidebarProvider     style="--sidebar-width: 280px; --sidebar-width-mobile:300px;">
+  <SidebarProvider style="--sidebar-width: 300px; --sidebar-width-mobile:300px;">
     <MinhaSidebar/>
-    <main class="bg-background w-full" >
+    <main class="bg-card w-full" >
       <Header/>
-      <RouterView/>
-      <slot />
+      
+      <div class="w-full max-w-5xl mx-auto px-4 sm:px-8 py-4">
+        <RouterView/>
+        <slot />
+      </div>
+
     </main>
   </SidebarProvider>
 </template>
