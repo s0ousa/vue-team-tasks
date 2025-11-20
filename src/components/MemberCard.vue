@@ -2,14 +2,11 @@
   import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
     CardTitle,
   } from '@/components/ui/card'
 
   import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-  import { Member } from '@/stores/MembersStore'
+  import type { Member } from '@/stores/MembersStore'
   import { useTaskStore } from '@/stores/TasksStore';
 
   const taskStore = useTaskStore()

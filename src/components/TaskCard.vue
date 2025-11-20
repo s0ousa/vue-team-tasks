@@ -32,10 +32,16 @@ const handleEdit = () => {
   headerStore.openDialog() 
 }
 
-// ✅ Função para formatar data sem problemas de timezone
 const formatDate = (dateStr: string): string => {
-  const [year, month, day] = dateStr.split('T')[0].split('-')
+  if (!dateStr) return ''
+  const parts = dateStr.split('T')[0]?.split('-')
+  if (!parts || parts.length !== 3) return dateStr
+  const [year, month, day] = parts
   return `${day}/${month}/${year}`
+}
+
+const getMemberAvatar = () => {
+  return memberStore.getMemberById(props.responsavelId)?.avatar || ''
 }
 </script>
 
@@ -66,7 +72,7 @@ const formatDate = (dateStr: string): string => {
         <div class="flex gap-2 items-center min-w-0 flex-1">
           <Avatar class="h-8 w-8 shrink-0">
             <AvatarImage 
-              :src="memberStore.getMemberById(responsavelId)?.avatar"
+              :src= getMemberAvatar()
               alt="avatar" 
               class="object-cover" 
             />

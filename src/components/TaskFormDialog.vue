@@ -9,7 +9,6 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
@@ -44,7 +43,7 @@ const df = new DateFormatter('pt-BR', {
   dateStyle: 'long'
 })
 
-const formatDisplayDate = (date: CalendarDate) => {
+const formatDisplayDate = (date :any ) => {
   const localDate = date.toDate(getLocalTimeZone())
   return df.format(localDate)
 }
