@@ -4,7 +4,7 @@ import { useTaskStore } from '@/stores/TasksStore'
 import { useMembersStore } from '@/stores/MembersStore'
 import { useHeaderStore } from '@/stores/HeaderStore'
 import { taskFormSchema, statusOptions, type TaskFormData } from '@/types/schemas/TaskFormSchema'
-import { DateFormatter } from '@internationalized/date'
+import { DateFormatter, getLocalTimeZone } from '@internationalized/date'
 import {
   DialogClose,
   DialogContent,
@@ -43,6 +43,11 @@ const df = new DateFormatter('pt-BR', {
   dateStyle: 'long'
 })
 
+const formatDisplayDate = (date: CalendarDate) => {
+  const localDate = date.toDate(getLocalTimeZone())
+  return df.format(localDate)
+}
+
 const initialFormState = (): Partial<TaskFormData> => ({
   titulo: '',
   descricao: '',
@@ -68,6 +73,7 @@ const loadTaskData = () => {
       descricao: task.descricao,
       status: task.status,
       responsavelId: task.responsavelId,
+      entrega: task.entrega
     }
     errors.value = {}
   } else {
@@ -201,7 +207,7 @@ const handleSubmit = async () => {
               >
                 <CalendarIcon />
                 <span v-if="formData.entrega">
-                  {{ df.format(formData.entrega.toDate('UTC')) }}
+                  {{ formatDisplayDate(formData.entrega) }}
                 </span>
                 <span v-else>
                   Escolha uma data
@@ -273,8 +279,7 @@ const handleSubmit = async () => {
 
       </FieldGroup>
 
-      <DialogFooter class="mt-8 flex sm:justify-between w-full gap-2">
-        
+      <div class="mt-8 flex flex-row justify-between items-center w-full gap-2">
         <div>
           <Button 
             v-if="isEditing" 
@@ -282,13 +287,13 @@ const handleSubmit = async () => {
             variant="destructive"
             @click="handleDelete"
             :disabled="isSubmitting"
+            size="icon"
           >
-            <Trash2 class="w-4 h-4 mr-2" />
-            Excluir
+            <Trash2 class="w-4 h-4" />
           </Button>
         </div>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 ml-auto">
           <DialogClose as-child>
             <Button 
               variant="outline" 
@@ -304,8 +309,7 @@ const handleSubmit = async () => {
             {{ isEditing ? 'Salvar' : 'Criar Tarefa' }}
           </Button>
         </div>
-
-      </DialogFooter>
+      </div>
     </form>
   </DialogContent>
 </template>

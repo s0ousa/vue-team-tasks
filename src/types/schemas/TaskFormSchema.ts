@@ -1,3 +1,4 @@
+import type { CalendarDate } from '@internationalized/date'
 import { z } from 'zod'
 
 export const statusOptions = [
@@ -16,10 +17,25 @@ export const taskFormSchema = z.object({
     .string()
     .min(5, 'A descrição deve ter no mínimo 5 caracteres'),
   
-  entrega: z.coerce
-    .date( "A data de entrega é obrigatória")
-    .min(new Date(), 'A data de entrega não pode ser no passado'),
-    
+    entrega: z.custom<CalendarDate>(
+      (val) => {
+        // Verifica se é CalendarDate
+        if (!val || typeof val !== 'object') return false
+        if (!('year' in val && 'month' in val && 'day' in val)) return false
+        
+        // Verifica se a data não é no passado
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        
+        const entregaDate = new Date(val.year, val.month - 1, val.day)
+        entregaDate.setHours(0, 0, 0, 0)
+        
+        return entregaDate >= today
+      },
+      {
+        message: 'A data de entrega é obrigatória e não pode ser no passado'
+      }
+    ),
   status: z.enum(statusOptions, { errorMap: () => ({ message: 'Selecione um status' }) }),
   
   responsavelId: z.string().min(1, 'Selecione um responsável')

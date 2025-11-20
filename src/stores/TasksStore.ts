@@ -9,7 +9,7 @@ export interface Task {
     id: string,
     titulo: string,
     descricao: string,
-    entrega: CalendarDate | string,
+    entrega:  string,
     status: Status,
     responsavelId: string
 }
@@ -20,34 +20,87 @@ export const useTaskStore = defineStore('tasks', () => {
     const error = ref<string | null>(null)
     const editingTask = ref<Task | null>(null)
 
-    const toDateString = (date: CalendarDate | Date | string): string => {
+    const toDateString = (date: CalendarDate | string): string => {
         if (typeof date === 'string') {
-            return date.split('T')[0]
+            const result = date.split('T')[0]
+            return result
         }
-        if (date instanceof Date) {
-            return date.toISOString().split('T')[0]
-        }
-        return date.toString()
+        
+        // CalendarDate.toString() retorna "YYYY-MM-DD"
+        const result = date.toString()
+        return result
     }
 
     
-    const toCalendarDate = (dateStr: string): CalendarDate => {
-        // extrai apenas YYYY-MM-DD da string
-        const dateOnly = dateStr.split('T')[0]
-        return parseDate(dateOnly)
+    const toCalendarDate = (date: string | Date | CalendarDate | any): CalendarDate => {
+        // Já é CalendarDate
+        if (date && typeof date === 'object' && 'year' in date && 'month' in date && 'day' in date) {
+            return date as CalendarDate
+        }
+        
+        let dateStr: string
+        
+        // É um objeto Date
+        if (date instanceof Date) {
+            const year = date.getFullYear()
+            const month = String(date.getMonth() + 1).padStart(2, '0')
+            const day = String(date.getDate()).padStart(2, '0')
+            dateStr = `${year}-${month}-${day}`
+        } 
+        // É string
+        else if (typeof date === 'string') {
+            // Remove tudo após 'T' ou espaço
+            dateStr = date.split('T')[0].split(' ')[0].trim()
+            
+            // Se não está no formato YYYY-MM-DD, tenta parsear como Date primeiro
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+                try {
+                    const parsedDate = new Date(date)
+                    if (!isNaN(parsedDate.getTime())) {
+                        const year = parsedDate.getFullYear()
+                        const month = String(parsedDate.getMonth() + 1).padStart(2, '0')
+                        const day = String(parsedDate.getDate()).padStart(2, '0')
+                        dateStr = `${year}-${month}-${day}`
+                    } else {
+                        throw new Error('Data inválida')
+                    }
+                } catch (e) {
+                    console.error('Erro ao parsear data:', date, e)
+                    // Fallback: data atual
+                    const today = new Date()
+                    const year = today.getFullYear()
+                    const month = String(today.getMonth() + 1).padStart(2, '0')
+                    const day = String(today.getDate()).padStart(2, '0')
+                    dateStr = `${year}-${month}-${day}`
+                }
+            }
+        } 
+        else {
+            console.error('Tipo de data desconhecido:', date, typeof date)
+            const today = new Date()
+            const year = today.getFullYear()
+            const month = String(today.getMonth() + 1).padStart(2, '0')
+            const day = String(today.getDate()).padStart(2, '0')
+            dateStr = `${year}-${month}-${day}`
+        }
+        
+        return parseDate(dateStr)
     }
-
     const addTask = async (taskData: Omit<Task, "id">) => {
         loading.value = true
         error.value = null
         try {
+            
+            const entregaString = toDateString(taskData.entrega as any)
+            
             const newTask: Task = {
                 id: crypto.randomUUID(),
                 ...taskData,
-                entrega: toDateString(taskData.entrega as any)
+                entrega: entregaString
             }
+            
             tasks.value.push(newTask)
-            console.log('Tarefa criada:', tasks.value)
+            
             return newTask
         } catch (err) {
             error.value = 'Erro ao criar tarefa'
@@ -66,13 +119,19 @@ export const useTaskStore = defineStore('tasks', () => {
     }
 
     const setEditingTask = (task: Task | null) => {
-        if (task && typeof task.entrega === 'string') {
+        if (!task) {
+            editingTask.value = null
+            return
+        }
+        
+        try {
             editingTask.value = {
                 ...task,
                 entrega: toCalendarDate(task.entrega)
             }
-        } else {
-            editingTask.value = task
+        } catch (error) {
+            console.error('Erro ao definir tarefa para edição:', error, task)
+            editingTask.value = null
         }
     }
 

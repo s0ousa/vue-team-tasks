@@ -18,13 +18,25 @@ const memberStore = useMembersStore()
 const taskStore = useTaskStore()    
 const headerStore = useHeaderStore()
 
-
 const handleEdit = () => {
-  taskStore.setEditingTask(props)
+  const taskToEdit: Task = {
+    id: props.id,
+    titulo: props.titulo,
+    descricao: props.descricao,
+    entrega: props.entrega,
+    status: props.status,
+    responsavelId: props.responsavelId
+  }
+  
+  taskStore.setEditingTask(taskToEdit)
   headerStore.openDialog() 
 }
 
-
+// ✅ Função para formatar data sem problemas de timezone
+const formatDate = (dateStr: string): string => {
+  const [year, month, day] = dateStr.split('T')[0].split('-')
+  return `${day}/${month}/${year}`
+}
 </script>
 
 <template>
@@ -68,7 +80,7 @@ const handleEdit = () => {
         </div>
         
         <p class="text-sm text-muted-foreground whitespace-nowrap shrink-0">
-          {{ new Date(props.entrega).toLocaleDateString('pt-br') }}
+          {{ formatDate(props.entrega) }}
         </p>
       </div>
     </CardContent>
