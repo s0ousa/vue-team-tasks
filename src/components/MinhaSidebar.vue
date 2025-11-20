@@ -39,7 +39,12 @@ const items = [
           <SidebarMenu>
               <SidebarMenuItem v-for="item in items" :key="item.title" class="mx-4 ">
                 <SidebarMenuButton asChild  class=" px-2 py-6 rounded-md ">
-                    <RouterLink :to="item.page"  @click="setOpenMobile(false)" class="w-full" >   
+                    <RouterLink 
+                      :to="item.page"  
+                      @click="setOpenMobile(false)" 
+                      class="w-full "
+                      active-class="!bg-accent !text-accent-foreground hover:!bg-accent text-"
+                    >   
                       <component :is="item.icon" />
                       <span>{{item.title}}</span>
                     </RouterLink>
