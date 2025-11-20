@@ -9,26 +9,37 @@ export interface ButtonAction {
 export const useHeaderStore = defineStore('header', () => {
     const pageTitle = ref('titulo')
     const pageDescription = ref('')
-    const buttonAction = ref<ButtonAction | null> (null)
+    const buttonText = ref('')
+    const isDialogOpen = ref(false)
 
-    function setHeader(title:string, description:string, action: ButtonAction) {
+    function setHeader(title:string, description:string, textOfButton:string) {
         pageTitle.value = title
         pageDescription.value = description
-        buttonAction.value = action
+        buttonText.value = textOfButton
     }
 
     function clearHeader() {
         pageTitle.value = 'Página Inicial'
         pageDescription.value = ''
-        buttonAction.value = null
-      }
+        buttonText.value = ''
+    }
 
+    function openDialog() {
+        isDialogOpen.value = true
+    }
 
-      return {
+    function closeDialog() {
+        isDialogOpen.value = false
+    }
+
+    return {
         pageTitle,
         pageDescription,
-        buttonAction,
+        buttonText,
+        isDialogOpen,
+        openDialog,
+        closeDialog,
         setHeader,
         clearHeader
-      }
+    }
 })

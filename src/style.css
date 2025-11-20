@@ -8,30 +8,54 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Mapeamento das novas cores de Status para o Tailwind v4 */
+  --color-pending: var(--pending);
+  --color-pending-background: var(--pending-background);
+  --color-pending-border: var(--pending-border);
+
+  --color-processing: var(--processing);
+  --color-processing-background: var(--processing-background);
+  --color-processing-border: var(--processing-border);
+
+  --color-completed: var(--completed);
+  --color-completed-background: var(--completed-background);
+  --color-completed-border: var(--completed-border);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -43,43 +67,59 @@
 }
 
 :root {
-  -background: hsl(216, 33%, 99%); /* gray-50 */
-  --foreground: hsl(215, 28%, 17); /* gray-800 */
+  --background: hsl(216, 33%, 99%);
+  --foreground: hsl(215, 28%, 17%); /* Corrigido: Adicionado % */
 
-  --card: hsl(240, 20%, 99%)  ;
-  --card-foreground: hsl(215 28% 17%); /* gray-800 */
+  --card: hsl(240, 20%, 99%);
+  --card-foreground: hsl(215 28% 17%);
 
-  --popover: hsl(216 33% 99%); /* gray-50 */
-  --popover-foreground: hsl(215 28% 17%); /* gray-800 */
+  --popover: hsl(216 33% 99%);
+  --popover-foreground: hsl(215 28% 17%);
 
-  --primary: hsl(243 76% 59%); /* indigo-600 */
-  --primary-foreground: hsl(231 100% 97%); /* indigo-50 */
+  --primary: hsl(243 76% 59%);
+  --primary-foreground: hsl(231 100% 97%);
 
-  --secondary: hsl(273 91% 66%); /* purple-500 */
-  --secondary-foreground: hsl(270 100% 99%); /* purple-50 */
+  --secondary: hsl(273 91% 66%);
+  --secondary-foreground: hsl(270 100% 99%);
 
-  --muted: hsl(215 14% 90%); /* gray-200 */
-  --muted-foreground: hsl(215 14% 34%); /* gray-600 */
+  --muted: hsl(215 14% 90%);
+  --muted-foreground: hsl(215 14% 34%);
 
-  --accent: hsl(266 100% 97%); /* purple-100 */
-  --accent-foreground: hsl(276 81% 56%); /* purple-600 */
+  --accent: hsl(266 100% 97%);
+  --accent-foreground: hsl(243 76% 59%);
 
-  --destructive: hsl(0 84% 60%); /* red-500 */
-  --destructive-foreground: hsl(0 80% 98%); /* red-50 */
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 80% 98%);
 
-  --success: hsl(145 63% 45%); /* green-500 */
-  --success-foreground: hsl(138 89% 98%); /* green-50 */
-  --warning: hsl(38 92% 50%); /* amber-500 */
-  --warning-foreground: hsl(50 100% 97%); /* amber-50 */
-  --info:hsl(217 91% 60%); /* blue-500 */
-  --info-foreground: hsl(217 100% 97%); /* blue-50 */
+  --success: hsl(145 63% 45%);
+  --success-foreground: hsl(138 89% 98%);
 
-  --border: hsl(215 14% 90%); /* gray-200 */
-  --input: hsl(215 14% 90%); /* gray-200 */
-  --ring: hsl(243 76% 59%); /* indigo-600 */
-  
+  --warning: hsl(38 92% 50%);
+  --warning-foreground: hsl(50 100% 97%);
+
+  --info: hsl(217 91% 60%);
+  --info-foreground: hsl(217 100% 97%);
+
+  --border: hsl(215 14% 90%);
+  --input: hsl(215 14% 90%);
+  --ring: hsl(243 76% 59%);
+
   --radius: 0.5rem;
-  
+
+  /* Cores de Status (Pendente, Andamento, Concluída) */
+  --pending: hsl(45, 93%, 47%);
+  --pending-background: hsl(54, 90%, 95%);
+  --pending-border: hsl(53, 98%, 77%);
+
+  --processing: hsl(217, 91%, 60%);
+  --processing-background: hsl(214, 100%, 97%);
+  --processing-border: hsl(214, 95%, 87%);
+
+  --completed: hsl(142, 71%, 45%);
+  --completed-background: hsl(138, 76%, 97%);
+  --completed-border: hsl(141, 84%, 85%);
+
+  /* Charts & Sidebar */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);

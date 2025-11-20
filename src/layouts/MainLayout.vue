@@ -14,7 +14,6 @@ import Header from "@/components/Header.vue";
         <RouterView/>
         <slot />
       </div>
-
     </main>
   </SidebarProvider>
 </template>

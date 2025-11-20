@@ -13,7 +13,7 @@
 
 </script>
 <template>
-   <Card class="w-full h-26 ">
+   <Card class="min-w-42 h-28 ">
     <CardContent class="flex flex-col gap-2 items-start justify-center">
             <CardTitle>{{title}}</CardTitle>
             <p class="text-3xl">

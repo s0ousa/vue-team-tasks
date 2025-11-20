@@ -11,13 +11,14 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from './ui/button';
+import { cargos } from '@/types/schemas/MemberFormSchema'
 
 
 
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 md:flex-row mt-4">
+    <div class="flex flex-col gap-4 md:flex-row mt-8">
      
      <InputGroup class="h-12 ">
        <InputGroupInput placeholder="Buscar membros..."  />
@@ -35,12 +36,13 @@ import { Button } from './ui/button';
              <SelectContent>
                  <SelectGroup>
                      <SelectLabel>Cargos</SelectLabel>
-                     <SelectItem value="apple">
-                         Desenvolvedor
+                     <SelectItem  v-for="(cargo, index) in cargos" 
+                        :key="index" 
+                        :value="cargo"
+                >
+                         {{ cargo }}
                      </SelectItem>
-                     <SelectItem value="banana">
-                         Product Owner
-                     </SelectItem>
+                   
                  </SelectGroup>
              </SelectContent>
          </Select>
