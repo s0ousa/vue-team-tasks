@@ -35,7 +35,6 @@ export const useMembersStore = defineStore('members', () => {
 
       members.value.push(newMember)
       
-      console.log(members.value);
       
       return newMember
       

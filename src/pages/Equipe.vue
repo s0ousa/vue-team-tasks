@@ -26,7 +26,7 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <h1 class=" text-md sm:text-lg">{{ headerStore.pageDescription }}</h1>
+    <h1 class=" text-md sm:text-lg mt-2" >{{ headerStore.pageDescription }}</h1>
     
     <SearchBox/>
     
@@ -42,8 +42,10 @@ onUnmounted(() => {
       v-if="membersStore.filteredMembers.length === 0" 
       class="text-center py-12 text-muted-foreground"
     >
-      <p class="text-lg">Nenhum membro encontrado</p>
-      <p class="text-sm mt-2">Tente ajustar os filtros de busca</p>
+      <p class="text-lg">Opss... nada por aqui...</p>
+      <p class="text-sm mt-2">
+        Crie um novo membro ou ajuste os filtros
+      </p>
     </div>
 
     <DynamicDialog>

@@ -11,8 +11,6 @@ const headerStore = useHeaderStore()
 const taskStore = useTaskStore()
 
 const handleAddTask = () => {
-    console.log(`chamou`);
-    
   taskStore.setEditingTask(null) 
   headerStore.openDialog()
 }
