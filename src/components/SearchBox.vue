@@ -20,7 +20,7 @@ const membersStore = useMembersStore()
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 md:flex-row mt-8">
+    <div class="flex flex-col gap-4 md:flex-row mt-6">
      
      <InputGroup class="h-12 ">
        <InputGroupInput 

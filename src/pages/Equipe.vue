@@ -7,6 +7,7 @@ import { onMounted, onUnmounted } from 'vue';
 import DynamicDialog from '@/components/DynamicDialog.vue';
 import { useMembersStore } from '@/stores/MembersStore';
 
+
 const headerStore = useHeaderStore()
 const membersStore = useMembersStore()
 
@@ -25,9 +26,11 @@ onUnmounted(() => {
 
 <template>
   <div>
+    <h1 class=" text-md sm:text-lg">{{ headerStore.pageDescription }}</h1>
+    
     <SearchBox/>
     
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full mt-12">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full mt-8">
       <MemberCard
         v-for="member in membersStore.filteredMembers"
         :key="member.id"

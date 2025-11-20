@@ -25,7 +25,7 @@ const handleAddTask = () => {
               <div>
                   <SidebarTrigger class="md:hidden" />
                   <h1 class="text-lg sm:text-2xl font-semibold">{{headerStore.pageTitle}}</h1>
-                  <p class="hidden lg:inline">{{headerStore.pageDescription}}</p>
+                  <!-- <p class="hidden lg:inline">{{headerStore.pageDescription}}</p> -->
               </div>
               <Button size="lg" class="cursor-pointer" @click="handleAddTask">
                   <Plus/>

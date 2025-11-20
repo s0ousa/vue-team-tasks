@@ -24,6 +24,7 @@ import { ref, computed, watch } from 'vue'
 import { useMembersStore } from '@/stores/MembersStore'
 import { useHeaderStore } from '@/stores/HeaderStore'
 import { Spinner } from './ui/spinner'
+import { toast } from 'vue-sonner'
 
 const headerStore = useHeaderStore()
 const membersStore = useMembersStore()
@@ -87,10 +88,11 @@ const handleSubmit = async () => {
   
     headerStore.closeDialog()
     resetForm()
+    toast.success("Sucesso!")
     
   } catch (error) {
     console.error('erro ao adicionar membro:', error)
- 
+    toast.error("Ops... Algo deu errado!")
   } finally {
     isSubmitting.value = false
   }

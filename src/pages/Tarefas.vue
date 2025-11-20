@@ -57,10 +57,12 @@ onUnmounted(() => {
 
 <template>
     <div>
-        <div class="max-w-7xl mx-auto mt-6">
+        <div class="max-w-7xl mx-auto mt-2">
             
+            <h1 class=" text-md sm:text-lg">{{ headerStore.pageDescription }}</h1>
+
             <!-- mobile -->
-            <div class="md:hidden space-y-3">
+            <div class="md:hidden space-y-3 mt-6">
                 <div 
                     v-for="section in sections" 
                     :key="section.key"
@@ -108,7 +110,7 @@ onUnmounted(() => {
 
 
             <!-- desktop -->
-            <div class="hidden md:grid md:grid-cols-3 gap-6">
+            <div class="hidden md:grid md:grid-cols-3 gap-6 mt-6">
                 <div 
                     v-for="section in sections" 
                     :key="section.key"

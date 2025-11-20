@@ -29,6 +29,7 @@ import { CalendarIcon, Trash2 } from 'lucide-vue-next'
 import { Calendar } from './ui/calendar'
 import { cn } from '@/lib/utils'
 import { Textarea } from './ui/textarea'
+import { toast } from 'vue-sonner'
 
 const headerStore = useHeaderStore()
 const taskStore = useTaskStore()
@@ -146,10 +147,12 @@ const handleSubmit = async () => {
     
     resetForm()
     headerStore.closeDialog()
+    toast.success("Sucesso!")
 
   } catch (error) {
     console.error('Erro ao salvar tarefa:', error)
     errors.value = { titulo: 'Erro ao salvar tarefa. Tente novamente.' }
+    toast.error("Ops... Algo deu errado!")
   } finally {
     isSubmitting.value = false
   }
