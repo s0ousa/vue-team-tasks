@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Rotate3D, RotateCcw, RotateCcwIcon, RotateCcwKey, RotateCcwKeyIcon, SearchIcon } from 'lucide-vue-next';
+import {  RotateCcwIcon, SearchIcon } from 'lucide-vue-next';
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 import {
   Select,
@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/select"
 import { Button } from './ui/button';
 import { cargos } from '@/types/schemas/MemberFormSchema'
+import { useMembersStore } from '@/stores/MembersStore';
 
+const membersStore = useMembersStore()
 
 
 </script>
@@ -21,7 +23,10 @@ import { cargos } from '@/types/schemas/MemberFormSchema'
     <div class="flex flex-col gap-4 md:flex-row mt-8">
      
      <InputGroup class="h-12 ">
-       <InputGroupInput placeholder="Buscar membros..."  />
+       <InputGroupInput 
+        placeholder="Buscar membros..."  
+        v-model="membersStore.searchQuery"  
+      />
        <InputGroupAddon>
          <SearchIcon />
        </InputGroupAddon>
@@ -29,7 +34,7 @@ import { cargos } from '@/types/schemas/MemberFormSchema'
  
      <div class="flex items-center gap-4">
          
-         <Select class="">  
+         <Select v-model="membersStore.cargoFilter" class="">  
              <SelectTrigger class="w-full !h-12 md:w-40">
                  <SelectValue placeholder="Cargo" />
              </SelectTrigger>
@@ -47,7 +52,7 @@ import { cargos } from '@/types/schemas/MemberFormSchema'
              </SelectContent>
          </Select>
          
-         <Button variant="outline" size="icon" class="h-12 w-12">
+         <Button variant="outline" size="icon" class="h-12 w-12" @click="membersStore.resetFilters">
              <RotateCcwIcon />
          </Button>
      </div>

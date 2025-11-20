@@ -10,15 +10,16 @@ const { toggleSidebar } = useSidebar();
 const headerStore = useHeaderStore()
 const taskStore = useTaskStore()
 
-// Função para adicionar nova tarefa
 const handleAddTask = () => {
-  taskStore.setEditingTask(null) // Limpa qualquer tarefa em edição
+    console.log(`chamou`);
+    
+  taskStore.setEditingTask(null) 
   headerStore.openDialog()
 }
 </script>
 
 <template>
-    <header class="flex w-full bg-card h-18 items-center border-b border-border">
+    <header class="flex w-full bg-card h-20 items-center border-b border-border">
           
           <div class="hidden md:flex items-center justify-between w-full max-w-5xl mx-auto px-4 sm:px-8 py-10">
               <div>

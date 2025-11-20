@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { ref } from "vue"
+import { computed, ref } from "vue"
 
 export type Cargo =
   | 'Tech Lead'
@@ -20,6 +20,8 @@ export const useMembersStore = defineStore('members', () => {
   const members = ref<Member[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
+  const searchQuery = ref('')
+  const cargoFilter = ref<string | undefined>(undefined)
 
   const addMember = async (memberData: Omit<Member, 'id'>) => {
     loading.value = true
@@ -56,6 +58,29 @@ export const useMembersStore = defineStore('members', () => {
     return members.value.find(m => m.id === id)
   }
 
+  const filteredMembers = computed(() => {
+    let result = members.value
+
+    if (searchQuery.value) {
+        const query = searchQuery.value.toLowerCase()
+        result = result.filter(member => 
+            member.nome.toLowerCase().includes(query) 
+        )
+    }
+
+    if (cargoFilter.value) {
+        result = result.filter(member => member.cargo === cargoFilter.value)
+    }
+
+    return result
+})
+
+const resetFilters = () => {
+  searchQuery.value = ''
+  cargoFilter.value = undefined
+}
+
+
   return {
     members,
     loading,
@@ -63,7 +88,11 @@ export const useMembersStore = defineStore('members', () => {
     addMember,
     deleteMember,
     getMemberById,
-    membersQuantity
+    membersQuantity,
+    searchQuery,
+    cargoFilter,
+    filteredMembers,
+    resetFilters,
   }
 
 },
