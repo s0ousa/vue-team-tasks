@@ -39,7 +39,6 @@ const isEditing = computed(() => !!taskStore.editingTask)
 const isSubmitting = ref(false)
 const errors = ref<Partial<Record<keyof TaskFormData, string>>>({})
 
-// Formatter para exibir datas no formato brasileiro
 const df = new DateFormatter('pt-BR', {
   dateStyle: 'long'
 })
@@ -54,14 +53,12 @@ const initialFormState = (): Partial<TaskFormData> => ({
 
 const formData = ref<Partial<TaskFormData>>(initialFormState())
 
-// Função para resetar o form completamente
 const resetForm = () => {
   formData.value = initialFormState()
   errors.value = {}
   taskStore.setEditingTask(null)
 }
 
-// Função para carregar dados da tarefa em edição
 const loadTaskData = () => {
   if (taskStore.editingTask) {
     const task = taskStore.editingTask
@@ -71,7 +68,6 @@ const loadTaskData = () => {
       descricao: task.descricao,
       status: task.status,
       responsavelId: task.responsavelId,
-      entrega: task.entrega // Mantém como está (string ou Date)
     }
     errors.value = {}
   } else {
@@ -80,12 +76,11 @@ const loadTaskData = () => {
   }
 }
 
-// Carregar dados quando o componente monta
 onMounted(() => {
   loadTaskData()
 })
 
-// Watch para detectar mudanças no editingTask (importante!)
+// importante
 watch(() => taskStore.editingTask, () => {
   loadTaskData()
 }, { deep: true })
