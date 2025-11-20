@@ -36,7 +36,7 @@ export const taskFormSchema = z.object({
         message: 'A data de entrega é obrigatória e não pode ser no passado'
       }
     ),
-  status: z.enum(statusOptions, { errorMap: () => ({ message: 'Selecione um status' }) }),
+  status: z.enum(statusOptions, 'Escolha um status'),
   
   responsavelId: z.string().min(1, 'Selecione um responsável')
 })

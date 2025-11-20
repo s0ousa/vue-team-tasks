@@ -5,12 +5,19 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useHeaderStore } from '@/stores/HeaderStore';
 import { useTaskStore } from '@/stores/TasksStore';
+import { useMembersStore } from '@/stores/MembersStore';
+import { toast } from 'vue-sonner';
 
 const { toggleSidebar } = useSidebar();
 const headerStore = useHeaderStore()
 const taskStore = useTaskStore()
+const membersStore = useMembersStore()
 
 const handleAddTask = () => {
+    if(membersStore.members.length == 0 && headerStore.pageTitle == "Tarefas") {
+        toast.error("Cadastre um membro antes, por favor!")
+        return
+    }
   taskStore.setEditingTask(null) 
   headerStore.openDialog()
 }
